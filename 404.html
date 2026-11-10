@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page Not Found | Mahin Sheikh (SK Mahin)</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <link rel="preload" href="/fonts/Geist-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Absolute path: the 404 page is served at whatever URL was requested (e.g. /foo/bar), so relative paths would break. -->
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="brand">
+        <span class="ms-logo" aria-hidden="true">MS</span>
+        <span class="brand-divider" aria-hidden="true">/</span>
+        <span class="brand-name">Mahin Sheikh</span>
+      </a>
+      <a href="/" class="btn btn-secondary btn-sm">Home</a>
+    </div>
+  </header>
+
+  <div class="geist-frame">
+    <main class="geist-container" id="main" tabindex="-1">
+      <section class="grid-section hero-section error-hero">
+        <span class="crosshair ch-tl" aria-hidden="true"></span>
+        <span class="crosshair ch-tr" aria-hidden="true"></span>
+
+        <p class="error-code">ERROR // 404</p>
+        <h1 class="hero-title error-title">Page Not Found</h1>
+        <p class="prose error-text">This page doesn’t exist, or it has moved.</p>
+        <a href="/" class="btn btn-primary">Back to Home &rarr;</a>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

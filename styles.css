@@ -1,0 +1,1248 @@
+/* ==========================================================================
+   Mahin Sheikh (SK Mahin) — Geist Dark Theme & Structural Grid
+   ========================================================================== */
+
+/* Self-hosted Geist (SIL OFL 1.1, see fonts/OFL-LICENSE.txt). Latin subset, variable weight. */
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-latin.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-latin.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+
+  --bg-100: #000000;
+  --bg-200: #0A0A0A;
+  --bg-hover: #111111;
+
+  --border: #1F1F1F;
+  --border-strong: #333333;
+  --border-input: #6B6B6B; /* >= 3:1 against #000 and #0A0A0A (WCAG 1.4.11) */
+  --border-input-hover: #8F8F8F;
+
+  --gray-1000: #EDEDED;
+  --gray-900: #A1A1A1;
+  --gray-700: #8F8F8F; /* AA on #000 and #0A0A0A (was #666, ~3.5:1) */
+
+  --ok: #00E599;
+  --error: #FF4D4F;
+
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --max-width: 880px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-padding-top: 64px;
+  background-color: var(--bg-100);
+  color: var(--gray-1000);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--bg-100);
+  color: var(--gray-1000);
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 200;
+  padding: 0.5rem 0.85rem;
+  border-radius: 6px;
+  background: #EDEDED;
+  color: #000000;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gray-1000);
+  outline-offset: 2px;
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid transparent;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ==========================================================================
+   STICKY HEADER & MS LOGO
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 56px;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  gap: 0.55rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-1000);
+}
+
+.ms-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: #EDEDED;
+  color: #000000;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
+.brand-divider {
+  color: #333333;
+  font-weight: 300;
+  font-size: 1.1rem;
+  user-select: none;
+}
+
+.brand-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  font-size: 0.84rem;
+  color: var(--gray-900);
+  padding: 0.32rem 0.7rem;
+  border-radius: 6px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.nav-link:hover {
+  color: var(--gray-1000);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-link.active,
+.nav-link[aria-current] {
+  color: var(--gray-1000);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================================
+   EXPOSED HAIRLINE GRID FRAME
+   ========================================================================== */
+
+.geist-frame {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.geist-container {
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  background: var(--bg-100);
+}
+
+.grid-section {
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Corner Crosshairs (+) */
+.crosshair {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.crosshair::before,
+.crosshair::after {
+  content: '';
+  position: absolute;
+  background-color: #555555;
+}
+
+.crosshair::before {
+  top: 5px;
+  left: 0;
+  width: 11px;
+  height: 1px;
+}
+
+.crosshair::after {
+  top: 0;
+  left: 5px;
+  width: 1px;
+  height: 11px;
+}
+
+.ch-tl { top: -6px; left: -6px; }
+.ch-tr { top: -6px; right: -6px; }
+.ch-bl { bottom: -6px; left: -6px; }
+.ch-br { bottom: -6px; right: -6px; }
+
+/* ==========================================================================
+   HERO / ABOUT SECTION
+   ========================================================================== */
+
+.hero-section {
+  padding: 3.5rem 2.25rem;
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 65%);
+}
+
+.hero-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-copy {
+  flex: 1;
+}
+
+.hero-avatar {
+  flex-shrink: 0;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  overflow: hidden;
+  background: var(--bg-200);
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 4.5vw, 2.85rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
+  color: #EDEDED;
+  background: linear-gradient(180deg, #FFFFFF 0%, #A1A1A1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.hero-alias {
+  white-space: nowrap;
+  font-weight: 400;
+  font-size: 0.68em;
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  color: var(--gray-900);
+  margin-bottom: 1.75rem;
+}
+
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  color: var(--gray-900);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 68ch;
+}
+
+.prose strong {
+  color: var(--gray-1000);
+  font-weight: 500;
+}
+
+.hero-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+/* Geist Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  height: 38px;
+  padding: 0 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-primary {
+  background: #EDEDED;
+  color: #000000;
+  border-color: #EDEDED;
+}
+
+.btn-primary:hover {
+  background: #CCCCCC;
+  border-color: #CCCCCC;
+}
+
+.btn-secondary {
+  background: var(--bg-200);
+  color: var(--gray-1000);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   SECTION HEADERS & CONTIGUOUS GEIST CELLS
+   ========================================================================== */
+
+.section-head {
+  padding: 1.35rem 2.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-100);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-700);
+  font-weight: 500;
+}
+
+.collab-note {
+  margin-top: 0.45rem;
+  font-size: 0.9rem;
+  color: var(--gray-900);
+}
+
+/* Contiguous Hairline Cell System */
+.geist-cell {
+  position: relative;
+  background: var(--bg-100);
+  transition: background-color 0.18s ease;
+  overflow: hidden;
+}
+
+.geist-cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    360px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.045),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .geist-cell:hover {
+    background: var(--bg-200);
+  }
+
+  .geist-cell:hover::before {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   TECHNICAL SKILLS GRID
+   ========================================================================== */
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.skill-cell {
+  padding: 1.1rem 2.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.skill-cell-wide {
+  grid-column: span 2;
+}
+
+.skill-text {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  color: var(--gray-1000);
+}
+
+/* ==========================================================================
+   FEATURED PROJECTS GRID
+   ========================================================================== */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.project-cell {
+  padding: 1.75rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.project-name {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--gray-1000);
+}
+
+.project-desc {
+  font-size: 0.88rem;
+  color: var(--gray-900);
+  line-height: 1.55;
+}
+
+.project-detail {
+  font-size: 0.82rem;
+  color: var(--gray-700);
+  line-height: 1.5;
+  margin-top: 0.15rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+.project-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: 4px;
+  background: var(--bg-200);
+  border: 1px solid var(--border);
+  color: var(--gray-900);
+}
+
+.project-inquire {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--gray-900);
+  margin-top: 0.65rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+  width: fit-content;
+}
+
+.project-inquire:hover {
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   CONTACT CHANNELS
+   ========================================================================== */
+
+.contact-channels {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.contact-direct-cell {
+  padding: 1.15rem 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.contact-cell-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.contact-channel-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--bg-200);
+  border: 1px solid var(--border);
+  color: var(--gray-900);
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.contact-direct-cell:hover .contact-channel-icon {
+  color: var(--gray-1000);
+  border-color: var(--border-strong);
+  background: var(--bg-hover);
+}
+
+.contact-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gray-900);
+}
+
+.contact-direct-right {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-width: 0;
+  gap: 0.6rem;
+}
+
+.contact-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--gray-1000);
+  white-space: nowrap;
+  min-height: 28px;
+  padding-block: 0.2rem;
+}
+
+.contact-value:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.copy-btn {
+  background: var(--bg-200);
+  border: 1px solid var(--border);
+  color: var(--gray-900);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  min-height: 28px;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.copy-btn:hover {
+  color: var(--gray-1000);
+  border-color: var(--border-strong);
+  background: var(--bg-hover);
+}
+
+/* ==========================================================================
+   CONTACT FORM (GEIST DARK STYLING)
+   ========================================================================== */
+
+.form-card {
+  padding: 2rem 2.25rem;
+  background: var(--bg-100);
+}
+
+/* Without JS, the form cannot submit (CSP form-action: none), so keep hidden until JS initializes */
+.contact-form {
+  display: none;
+  gap: 0.85rem;
+}
+
+.js-ready .contact-form {
+  display: grid;
+}
+
+/* Fallback text shows until app.js runs (covers JS disabled AND JS blocked/failed). */
+.js-ready .form-noscript {
+  display: none;
+}
+
+.contact-form[hidden] {
+  display: none !important;
+}
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--gray-900);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  background: var(--bg-200);
+  border: 1px solid var(--border-input);
+  border-radius: 6px;
+  padding: 0.68rem 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--gray-1000);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--gray-700);
+}
+
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:focus,
+.field textarea:-webkit-autofill,
+.field textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--gray-1000);
+  caret-color: var(--gray-1000);
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-200) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.field input:hover,
+.field textarea:hover {
+  border-color: var(--border-input-hover);
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: 2px solid transparent; /* shows in forced-colors mode, where box-shadow is dropped */
+  outline-offset: 2px;
+  border-color: #EDEDED;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+  background: var(--bg-100);
+}
+
+.field [aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+.err {
+  min-height: 1.15em;
+  font-size: 0.78rem;
+  color: var(--error);
+}
+
+.ts-box {
+  margin-top: 0.25rem;
+  max-width: 100%;
+}
+
+.ts-box:empty {
+  display: none;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.btn-submit {
+  height: 40px;
+  padding: 0 1.25rem;
+}
+
+.form-status {
+  font-size: 0.84rem;
+  color: var(--gray-900);
+}
+
+.form-status.error {
+  color: var(--error);
+}
+
+.form-noscript {
+  color: var(--gray-900);
+  font-size: 0.88rem;
+  margin-bottom: 1rem;
+}
+
+.form-noscript a {
+  color: var(--gray-1000);
+  text-decoration: underline;
+}
+
+.form-done {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 1rem 0;
+}
+
+.form-done[hidden] {
+  display: none !important;
+}
+
+.done-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 229, 153, 0.12);
+  border: 1px solid rgba(0, 229, 153, 0.3);
+  color: var(--ok);
+}
+
+.form-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--gray-1000);
+}
+
+.form-sub {
+  font-size: 0.9rem;
+  color: var(--gray-900);
+}
+
+.again {
+  margin-top: 0.35rem;
+}
+
+/* ==========================================================================
+   FOOTER & WORLD-CLASS SOCIAL DOCK
+   ========================================================================== */
+
+.site-footer {
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 2.25rem;
+  background: var(--bg-200);
+  font-size: 0.8rem;
+  color: var(--gray-700);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+}
+
+.footer-copy {
+  color: var(--gray-900);
+  font-size: 0.78rem;
+  letter-spacing: -0.01em;
+}
+
+.ftr-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.ftr-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 30px;
+  padding: 0 0.65rem;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--gray-900);
+  background: var(--bg-100);
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+}
+
+.ftr-link svg {
+  flex-shrink: 0;
+  color: var(--gray-900);
+  transition: color 0.15s ease;
+}
+
+.ftr-link:hover {
+  color: #FFFFFF;
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+
+.ftr-link:hover svg {
+  color: #FFFFFF;
+}
+
+.ftr-top {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--gray-900);
+  transition: color 0.15s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+}
+
+.ftr-top:hover {
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   404 PAGE (kept in CSS so no inline styles are needed)
+   ========================================================================== */
+
+.btn-sm {
+  height: 32px;
+  font-size: 0.8rem;
+}
+
+.error-hero {
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.error-code {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--gray-700);
+  margin-bottom: 0.5rem;
+}
+
+.error-title {
+  font-size: clamp(3rem, 8vw, 5rem);
+  margin-bottom: 0.75rem;
+}
+
+.error-text {
+  margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* Two contact cells need ~400px each; stack them below ~860px. */
+@media (max-width: 860px) {
+  .contact-channels {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Touch devices: bigger tap targets, and 16px inputs so iOS Safari doesn't zoom on focus. */
+@media (pointer: coarse) {
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .copy-btn {
+    min-height: 44px;
+    padding: 0.2rem 0.8rem;
+  }
+
+  .contact-value {
+    min-height: 44px;
+  }
+
+  .btn,
+  .btn-submit {
+    min-height: 44px;
+  }
+
+  .brand {
+    min-height: 44px;
+  }
+
+  .ftr-link {
+    height: 44px;
+  }
+
+  .ftr-top {
+    min-height: 44px;
+  }
+}
+
+@media (pointer: coarse), (max-width: 680px) {
+  .field input,
+  .field textarea {
+    font-size: 16px;
+  }
+}
+
+/* Small phones: logo-only brand and a compact nav so the header never overflows. */
+@media (max-width: 520px) {
+  .header-inner {
+    padding: 0 1rem;
+  }
+
+  .brand-divider {
+    display: none;
+  }
+
+  .brand-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .nav {
+    gap: 0;
+  }
+
+  .nav-link {
+    font-size: 0.82rem;
+    padding: 0.32rem 0.5rem;
+  }
+}
+
+@media (forced-colors: active) {
+  .hero-title {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: CanvasText;
+  }
+}
+
+@media (max-width: 680px) {
+  .geist-frame {
+    padding: 1rem 0.75rem 2.5rem;
+  }
+
+  .hero-section,
+  .section-head,
+  .skill-cell,
+  .project-cell,
+  .contact-direct-cell,
+  .form-card,
+  .site-footer {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .hero-top {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .skills-grid,
+  .projects-grid,
+  .contact-channels,
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-cell-wide {
+    grid-column: span 1;
+  }
+
+  /* Mobile: one row per channel -> [icon] [address] (label kept for screen readers only) */
+  .contact-direct-cell {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.75rem;
+  }
+
+  .contact-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .contact-direct-right {
+    flex: 1;
+    min-width: 0;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .contact-value {
+    overflow-wrap: anywhere;
+  }
+
+  /* Mobile: icon-only profile links (names kept for screen readers) */
+  .ftr-link {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .ftr-link svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .ftr-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .ftr-links {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .ftr-top {
+    margin-top: 0.25rem;
+  }
+}
+
+/* Skip-link target gets focus programmatically; no ring needed on the whole page body. */
+main:focus {
+  outline: none;
+}
+
+/* ==========================================================================
+   PRINT: dark UI -> plain black on white, hide interactive chrome
+   ========================================================================== */
+
+@media print {
+  :root {
+    color-scheme: light;
+  }
+
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-text-fill-color: #000 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transition: none !important;
+  }
+
+  .site-header {
+    position: static;
+  }
+
+  .skip-link,
+  .nav,
+  .hero-actions,
+  .copy-btn,
+  .ftr-top,
+  .form-card,
+  .ftr-links .sr-only,
+  .crosshair {
+    display: none !important;
+  }
+
+  .geist-container,
+  .grid-section,
+  .section-head,
+  .skills-grid,
+  .projects-grid,
+  .contact-channels,
+  .site-footer,
+  .site-header,
+  .geist-cell {
+    border-color: #999 !important;
+  }
+
+  .skills-grid,
+  .projects-grid,
+  .contact-channels {
+    gap: 0;
+  }
+
+  .geist-cell,
+  .project-cell,
+  .skill-cell {
+    break-inside: avoid;
+  }
+
+  .contact-value[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.7rem;
+  }
+}

@@ -582,7 +582,6 @@ ul {
   grid-template-columns: repeat(2, 1fr);
   gap: 1px;
   background: var(--border);
-  border-bottom: 1px solid var(--border);
 }
 
 .contact-direct-cell {
